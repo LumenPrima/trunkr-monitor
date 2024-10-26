@@ -24,11 +24,10 @@ class TableManager:
         table.add_column("Alpha Tag", style="yellow", width=20)
         table.add_column("Unit", style="blue", width=10)
         
-        now = int(time.time())
         for record in records:
-            elapsed = now - record["start_time"]
+            dt = datetime.fromtimestamp(record["start_time"], self.timezone)
             table.add_row(
-                f"{elapsed//60}:{elapsed%60:02d}",
+                dt.strftime(TIME_FORMAT),
                 str(record["talkgroup"]),
                 record.get("alpha_tag", ""),
                 str(record["initiating_unit"])
