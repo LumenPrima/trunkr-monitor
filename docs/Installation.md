@@ -107,6 +107,93 @@ sudo systemctl enable mongod
 mongosh
 ```
 
+### Database Setup
+
+After installing MongoDB, set up the database and collections:
+
+1. Connect to MongoDB:
+```bash
+mongosh
+```
+
+2. Create and use the database:
+```javascript
+use trunkr_database
+```
+
+3. Create collections with indexes:
+```javascript
+// Create collections
+db.createCollection("calls_metadata")
+db.createCollection("units_metadata")
+db.createCollection("talkgroups_list")
+
+// Create indexes for calls_metadata
+db.calls_metadata.createIndex({ "hash": 1 }, { unique: true })
+db.calls_metadata.createIndex({ "start_time": 1 })
+db.calls_metadata.createIndex({ "talkgroup": 1 })
+
+// Create indexes for units_metadata
+db.units_metadata.createIndex({ "event_hash": 1, "timestamp": 1 })
+```
+
+### Getting Your MongoDB URI
+
+The MongoDB URI is required for the application to connect to your database. The format depends on your setup:
+
+#### Local Installation (No Authentication)
+If you're running MongoDB locally without authentication:
+```
+mongodb://localhost:27017
+```
+
+#### Local Installation (With Authentication)
+1. First, create a database user:
+```javascript
+use trunkr_database
+db.createUser(
+  {
+    user: "trunkruser",
+    pwd: "your_secure_password",
+    roles: [
+      { role: "readWrite", db: "trunkr_database" }
+    ]
+  }
+)
+```
+
+2. Your URI will be:
+```
+mongodb://trunkruser:your_secure_password@localhost:27017/trunkr_database
+```
+
+#### Remote Installation
+For a remote MongoDB server:
+```
+mongodb://username:password@server_ip:27017/trunkr_database
+```
+
+#### MongoDB Atlas
+If using MongoDB Atlas:
+1. Log in to your Atlas account
+2. Click "Connect" on your cluster
+3. Choose "Connect your application"
+4. Copy the provided connection string
+5. Replace `<password>` with your database user's password
+
+### Testing the Connection
+
+1. Test your connection string:
+```bash
+mongosh "your_connection_string"
+```
+
+2. Verify database access:
+```javascript
+use trunkr_database
+db.calls_metadata.find().limit(1)
+```
+
 ## Faster Whisper Server Setup
 
 The project uses Faster Whisper for audio transcription. For detailed setup and configuration options, refer to:
