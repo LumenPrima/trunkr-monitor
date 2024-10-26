@@ -1,6 +1,3 @@
-# Environment variables
-.env
-
 # Python
 __pycache__/
 *.py[cod]
@@ -23,23 +20,28 @@ wheels/
 .installed.cfg
 *.egg
 
-# Logs
-logs/
-*.log
-
 # Virtual Environment
 venv/
 ENV/
 env/
-.env/
 
 # IDE
 .idea/
 .vscode/
 *.swp
 *.swo
-*~
 
-# OS
+# Logs
+logs/
+*.log
+
+# Environment variables
+.env
+
+# Project specific
+otherdocs/
+unused/
+
+# Operating System
 .DS_Store
 Thumbs.db
