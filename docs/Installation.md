@@ -239,6 +239,43 @@ TIMEZONE=America/New_York
 DEBUG_MODE=False
 ```
 
+## Importing Talkgroups
+
+The system requires a talkgroups list from trunk-recorder to map talkgroup IDs to their descriptions. The talkgroups file should be in CSV format with the following columns:
+```
+Decimal,Hex,Alpha Tag,Mode,Description,Tag,Category
+```
+
+Example format:
+```csv
+5000,1388,"FD01DISP","D","County Fire/EMS Dispatch","Fire Dispatch","Adams County (01)"
+5001,1389,"FD01TAC04","D","County Fire Tac 4","Fire-Tac","Adams County (01)"
+```
+
+To import your talkgroups:
+
+1. Make the import script executable:
+```bash
+chmod +x scripts/import_talkgroups.py
+```
+
+2. Run the import script with your talkgroups CSV file:
+```bash
+python scripts/import_talkgroups.py path/to/your/talkgroups.csv
+```
+
+The script will:
+- Connect to MongoDB using your configured URI
+- Create necessary indexes
+- Remove any existing talkgroups
+- Import the new talkgroups list
+
+You can verify the import by checking the collection in MongoDB:
+```javascript
+use trunkr_database
+db.talkgroups_list.find().limit(5)
+```
+
 ## Configuration Verification
 
 1. MongoDB Settings:
