@@ -1,153 +1,136 @@
 # Trunkr Monitor
 
-A real-time Python-based monitoring and visualization system for radio call data, featuring flexible MongoDB integration with support for both change streams and polling updates.
+⚠️ **BETA PROJECT WARNING** ⚠️
+This project is currently in BETA status and is NOT production-ready. Please note:
+- Security features are incomplete and NOT suitable for production use
+- Features are still under development and may change significantly
+- Bugs and stability issues may exist
+- No warranty or support is provided
+- Use at your own risk
 
-## Features
+## Overview
 
-- Dual-mode database monitoring:
-  - Real-time updates using MongoDB change streams (with replica set)
-  - Automatic fallback to efficient polling (standard MongoDB)
-- Three synchronized display panels:
-  - 🔴 Active Calls: Currently ongoing radio transmissions
-  - 📼 Recent Calls: Historical call records with transcriptions
-  - 📟 Unit Activities: Individual radio unit actions and status updates
-- Color-coded display for different types of activities and statuses
-- Automatic handling of encrypted transmissions
-- Configurable timezone and time format support
-- Debug logging with configurable verbosity
-- Interactive and non-interactive operation modes
-- Graceful handling of connection issues and automatic reconnection
-- Clean shutdown with Ctrl+C
+Trunkr Monitor is a real-time monitoring system designed to work with [trunk-recorder](https://github.com/robotastic/trunk-recorder), extending its capabilities with advanced features like audio transcription and unit tracking. The system processes audio recordings and metadata from trunk-recorder, storing them in MongoDB and providing a terminal-based user interface for monitoring activities.
 
-## Project Structure
+### Key Features
 
-- `main.py` - Application entry point and argument parsing
-- `monitor.py` - Core monitoring and display management
-- `database.py` - Real-time database operations with change streams and fallback polling
-- `tables.py` - Rich console table creation and formatting
-- `table_config.py` - Table styling and layout configuration
-- `config.py` - Configuration loading from environment variables
-- `.env` - System-specific configuration (create from .env.example)
-- `.env.example` - Template for environment configuration
+- Real-time call monitoring
+- Unit activity tracking
+- Audio transcription using Faster Whisper
+- MongoDB integration for data storage
+- Terminal-based UI with rich formatting
+- Flexible deployment options (local, distributed, or cloud)
 
 ## Documentation
 
-Comprehensive documentation is available in the `docs` folder:
+- [Installation Guide](docs/Installation.md) - Complete setup instructions
+- [Configuration Guide](docs/Configuration.md) - Detailed configuration options
+- [Architecture Guide](docs/Architecture.md) - System design and components
+- [Usage Guide](docs/Usage.md) - How to use the system
 
-- [Installation Guide](docs/Installation.md) - Detailed setup instructions and requirements
-- [Usage Guide](docs/Usage.md) - Operating instructions and command-line options
-- [Architecture](docs/Architecture.md) - System design and component interactions
-- [Configuration](docs/Configuration.md) - Available configuration options and customization
+## Components
+
+### Core System
+- Terminal-based monitoring interface
+- MongoDB integration for data storage
+- Real-time updates via change streams or polling
+- Timezone-aware timestamp handling
+
+### Audio Processing
+- Integration with [Faster Whisper](https://github.com/SYSTRAN/faster-whisper) for transcription
+- Audio compression and storage
+- Batch processing capabilities
+- Optional transcription support
+
+### Data Management
+- MongoDB GridFS for audio storage
+- Metadata collection management
+- Unit activity tracking
+- Call history maintenance
+
+## Requirements
+
+- Python 3.7+
+- MongoDB
+- trunk-recorder setup
+- FFmpeg for audio processing
+- Docker (for Faster Whisper Server)
 
 ## Quick Start
 
-1. Ensure Python 3.x is installed on your system
-2. Clone this repository
-3. Install required dependencies:
-   ```bash
-   pip install rich pymongo pytz python-dotenv
-   ```
-4. Set up environment configuration:
-   ```bash
-   cp .env.example .env
-   # Edit .env with your settings
-   ```
-5. Start monitoring:
-   ```bash
-   python main.py
-   ```
-   
-   For non-interactive mode:
-   ```bash
-   python main.py --non-interactive
-   ```
-
-## MongoDB Setup Options
-
-The application supports two modes of operation:
-
-### Basic Setup
-- Standard MongoDB installation
-- No replica set required
-- Uses efficient polling for updates
-- Perfect for development and testing
-
-### Advanced Setup
-- MongoDB with replica set configuration
-- Enables real-time change streams
-- Lower latency and resource usage
-- Recommended for production use
-
-## Environment Configuration
-
-Create a `.env` file based on `.env.example` with your settings:
-
+1. Install dependencies:
 ```bash
-# MongoDB Configuration
-MONGODB_URI=mongodb://localhost:27017
-DATABASE_NAME=your_database
-
-# Collection Names
-UNITS_COLLECTION=units_metadata
-CALLS_COLLECTION=calls_metadata
-TALKGROUPS_COLLECTION=talkgroups_list
-
-# Timezone Configuration
-TIMEZONE=America/New_York
-
-# Debug Mode
-DEBUG_MODE=False
+pip install rich pymongo pytz python-dotenv
 ```
 
-## System Requirements
+2. Configure environment:
+```bash
+cp .env.example .env
+# Edit .env with your settings
+```
 
-- Python 3.x
-- MongoDB (standard or replica set)
-- Terminal with color support
-- Sufficient terminal height for optimal display (minimum 24 lines recommended)
+3. Start the monitor:
+```bash
+python main.py
+```
 
-## Dependencies
+See the [Installation Guide](docs/Installation.md) for complete setup instructions.
 
-- `rich`: Terminal formatting and tables
-- `pymongo`: MongoDB database operations
-- `pytz`: Timezone handling
-- `python-dotenv`: Environment configuration management
+## Deployment Options
 
-## Logging
+### Local Development
+- All components running locally
+- Best for development and testing
+- Easiest to set up and debug
 
-- Debug logs are written to `logs/trunkr.log`
-- Log level is configurable via DEBUG_MODE in .env
-- Logs include timestamps and relevant operational details
+### Distributed Setup
+- MongoDB on dedicated server
+- Faster Whisper on GPU machine
+- Monitor on workstations
+- Better for team environments
 
-## Error Handling
+### Cloud-Based
+- MongoDB Atlas for database
+- Cloud-hosted Whisper API
+- Monitor running locally
+- Suitable for scalable deployments
 
-- Automatic detection of MongoDB capabilities
-- Seamless fallback between change streams and polling
-- Graceful handling of connection issues
-- Robust error logging and recovery mechanisms
+## Scripts
 
-## Performance
+The project includes several utility scripts:
 
-- Automatic selection of optimal update mechanism
-- Efficient polling when change streams unavailable
-- Optimized display refresh rates
-- Memory-efficient data caching
+- `process_audio_upload.sh` - Process and upload individual audio files
+- `process_audio_upload_no_transcription.sh` - Process without transcription
+- `batch_audio_processor.sh` - Batch process audio files
+- `process_folder.sh` - Process entire folders of recordings
+- `unit_script_logger.sh` - Log unit activities
 
-## Security Notes
+## Integration with trunk-recorder
 
-- Never commit .env file to version control
-- Use secure MongoDB connection strings in production
-- Protect sensitive configuration data
-- Implement proper access controls
+This project is designed to enhance [trunk-recorder](https://github.com/robotastic/trunk-recorder) by:
+1. Processing its audio recordings and metadata
+2. Adding transcription capabilities
+3. Providing a real-time monitoring interface
+4. Storing data in a queryable database
+5. Tracking unit activities
+
+Configure trunk-recorder to output to a directory monitored by this system for seamless integration.
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+This is a beta project under active development. Contributions are welcome:
+- Bug reports
+- Feature requests
+- Code contributions
+- Documentation improvements
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+[Insert License Information]
+
+## Acknowledgments
+
+- [trunk-recorder](https://github.com/robotastic/trunk-recorder) - The foundation for this project
+- [Faster Whisper](https://github.com/SYSTRAN/faster-whisper) - Speech-to-text capabilities
+- [Rich](https://github.com/Textualize/rich) - Terminal formatting
+- [PyMongo](https://github.com/mongodb/mongo-python-driver) - MongoDB integration

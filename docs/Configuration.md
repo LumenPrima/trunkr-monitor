@@ -1,5 +1,53 @@
 # Configuration Guide
 
+⚠️ **BETA PROJECT WARNING** ⚠️
+This project is currently in BETA status and is NOT production-ready. Please note:
+- Security features are incomplete and NOT suitable for production use
+- Features are still under development and may change significantly
+- Bugs and stability issues may exist
+- No warranty or support is provided
+- Use at your own risk
+
+## Deployment Configurations
+
+The system supports various deployment configurations to suit different needs:
+
+### Local Development Setup
+```bash
+# MongoDB local
+MONGODB_URI=mongodb://localhost:27017
+
+# Whisper API local
+WHISPER_API_URL=http://localhost:8000/v1/audio/transcriptions
+
+# Debug enabled
+DEBUG_MODE=True
+```
+
+### Distributed Setup
+```bash
+# MongoDB on dedicated server
+MONGODB_URI=mongodb://mongodb-server:27017
+
+# Whisper API on GPU server
+WHISPER_API_URL=http://gpu-server:8000/v1/audio/transcriptions
+
+# Production mode
+DEBUG_MODE=False
+```
+
+### Cloud Setup
+```bash
+# MongoDB Atlas
+MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/
+
+# Cloud Whisper API
+WHISPER_API_URL=https://api.whisperservice.com/v1/audio/transcriptions
+
+# Production mode
+DEBUG_MODE=False
+```
+
 ## Environment Configuration (.env)
 
 The application uses environment variables for system-specific configuration. Create a `.env` file based on `.env.example`:
@@ -117,46 +165,6 @@ COLUMN_STYLES = {
 }
 ```
 
-## Database Configuration (database.py)
-
-### Change Stream Settings
-```python
-# Change stream configuration
-pipeline = [
-    {'$match': {'operationType': {'$in': ['insert', 'update']}}}
-]
-full_document = 'updateLookup'  # Include full document in updates
-```
-
-### Polling Settings
-```python
-# Fallback polling configuration
-polling_interval = 0.1       # Seconds between polls
-refresh_threshold = 1        # Seconds before forcing refresh
-recent_window = 300         # Data retention window (5 minutes)
-active_window = 180         # Active call window (3 minutes)
-```
-
-### Cache Settings
-```python
-# Data cache configuration
-recent_calls_limit = 50     # Maximum recent calls to store
-recent_units_limit = 100    # Maximum unit activities to store
-```
-
-## Environment Variables Guide
-
-### Required Variables
-- `MONGODB_URI`: MongoDB connection string
-- `DATABASE_NAME`: Target database name
-
-### Optional Variables
-- `UNITS_COLLECTION`: Name of units collection (default: units_metadata)
-- `CALLS_COLLECTION`: Name of calls collection (default: calls_metadata)
-- `TALKGROUPS_COLLECTION`: Name of talkgroups collection (default: talkgroups_list)
-- `TIMEZONE`: Local timezone (default: America/New_York)
-- `DEBUG_MODE`: Enable debug logging (default: False)
-
 ## Best Practices
 
 1. **MongoDB Configuration**
@@ -182,11 +190,11 @@ recent_units_limit = 100    # Maximum unit activities to store
    - Set appropriate cache sizes
    - Monitor resource usage
 
-5. **Security**
-   - Use authentication in MongoDB URI
-   - Protect the .env file
-   - Use secure connections in production
-   - Implement proper access controls
+5. **Security** (Beta Limitations)
+   - Current security features are incomplete
+   - Authentication is not fully implemented
+   - API endpoints lack proper security
+   - Use in controlled environments only
 
 ## Development vs Production
 
@@ -229,3 +237,23 @@ DEBUG_MODE=False
    - Check file permissions
    - Review log output
    - Test connection strings
+
+## Known Limitations
+
+1. **Security**
+   - Limited authentication
+   - Basic error handling
+   - Minimal input validation
+   - No encryption for local storage
+
+2. **Features**
+   - Some features incomplete
+   - API endpoints in development
+   - Limited error recovery
+   - Basic monitoring capabilities
+
+3. **Stability**
+   - Potential memory leaks
+   - Connection handling issues
+   - Resource management concerns
+   - Error handling gaps

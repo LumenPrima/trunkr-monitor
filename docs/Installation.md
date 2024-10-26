@@ -1,5 +1,13 @@
 # Installation Guide
 
+⚠️ **BETA PROJECT WARNING** ⚠️
+This project is currently in BETA status and is NOT production-ready. Please note:
+- Security features are incomplete and NOT suitable for production use
+- Features are still under development and may change significantly
+- Bugs and stability issues may exist
+- No warranty or support is provided
+- Use at your own risk
+
 ## System Requirements
 
 ### Software Prerequisites
@@ -12,6 +20,30 @@
 - Minimum terminal height: 24 lines recommended
 - Network connectivity for MongoDB access
 - Sufficient CPU for real-time updates
+
+## Deployment Options
+
+The system can be deployed in several configurations:
+
+### 1. All-Local Setup
+- MongoDB running locally
+- Faster Whisper Server running locally
+- Monitor application running locally
+- Best for development and testing
+
+### 2. Distributed Setup
+- MongoDB on a dedicated server
+- Faster Whisper Server on a separate machine (especially for GPU support)
+- Monitor application on user workstations
+- Better for team environments
+
+### 3. Cloud Setup
+- MongoDB Atlas for database
+- Cloud-hosted Whisper API
+- Monitor application running locally
+- Suitable for scalable deployments
+
+Choose the setup that best matches your needs and resources.
 
 ## Installation Steps
 
@@ -216,20 +248,20 @@ pip install -r requirements.txt  # if requirements.txt exists
 
 ## Security Notes
 
-1. Environment File:
-   - Never commit .env to version control
-   - Protect sensitive credentials
-   - Use secure connection strings
+⚠️ **IMPORTANT SECURITY NOTICE** ⚠️
+This is a beta project with incomplete security features. Current limitations include:
+- No built-in authentication system
+- Limited input validation
+- Basic error handling
+- No encryption for local storage
+- Minimal security hardening
 
-2. MongoDB Connection:
-   - Use authentication in production
-   - Secure connection strings
-   - Proper network security
-
-3. Logging:
-   - Monitor log file size
-   - Implement log rotation
-   - Secure log file permissions
+For any use beyond testing and development:
+1. Implement proper authentication
+2. Add input validation
+3. Secure all API endpoints
+4. Encrypt sensitive data
+5. Follow security best practices
 
 ## Additional Resources
 
