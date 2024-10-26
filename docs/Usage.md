@@ -19,12 +19,12 @@ The monitor displays two main panels:
 ### Left Panel - Active Calls
 - Shows currently ongoing radio calls
 - Updates in real-time
-- Displays call details including duration
+- Displays start time of each call in HH:MM:SS format
 
 ### Right Panel - Recent Calls
 - Shows history of completed calls
 - Maintains a log of recent activity
-- Displays call details and duration
+- Displays call details and timestamps
 
 ## Controls
 
@@ -34,8 +34,8 @@ The monitor displays two main panels:
 ## Reading the Display
 
 The monitor uses color coding and rich text formatting:
-- Active calls are displayed with live duration counters
-- Recent calls show completion times and total duration
+- Active calls show the time when each call started
+- Recent calls show completion times
 - Error messages (if any) are displayed in red
 
 ## Troubleshooting

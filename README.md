@@ -5,12 +5,11 @@ A Python-based monitoring and visualization system for call data.
 ## Project Structure
 
 - `main.py` - Entry point of the application
-- `call_monitor.py` - Call monitoring functionality
 - `config.py` - Configuration settings
 - `database.py` - Database operations
-- `monitor.py` - General monitoring functionality
+- `monitor.py` - Core monitoring functionality
 - `table_config.py` - Table configuration settings
-- `tables.py` - Table management and operations
+- `tables.py` - Table management and display operations
 
 ## Documentation
 
