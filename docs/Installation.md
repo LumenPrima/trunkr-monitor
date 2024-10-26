@@ -12,7 +12,7 @@ This project is currently in BETA status and is NOT production-ready. Please not
 
 ### Software Prerequisites
 - Python 3.x (3.7 or higher recommended)
-- MongoDB (replica set optional)
+- MongoDB (7.0 or higher recommended)
 - Git (for version control)
 - Terminal with color support
 
@@ -43,8 +43,6 @@ The system can be deployed in several configurations:
 - Monitor application running locally
 - Suitable for scalable deployments
 
-Choose the setup that best matches your needs and resources.
-
 ## Installation Steps
 
 1. Clone the repository:
@@ -67,6 +65,64 @@ venv\Scripts\activate
 3. Install required dependencies:
 ```bash
 pip install rich pymongo pytz python-dotenv
+```
+
+## MongoDB Installation
+
+For detailed MongoDB 7.0 installation instructions, refer to the official documentation:
+- [Install MongoDB Community Edition on Ubuntu](https://www.mongodb.com/docs/v7.0/tutorial/install-mongodb-on-ubuntu/)
+- [Install MongoDB Community Edition on Windows](https://www.mongodb.com/docs/v7.0/tutorial/install-mongodb-on-windows/)
+- [Install MongoDB Community Edition on macOS](https://www.mongodb.com/docs/v7.0/tutorial/install-mongodb-on-os-x/)
+
+Quick setup for Ubuntu:
+
+### Import MongoDB Public Key
+```bash
+sudo apt-get install gnupg curl
+curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
+   sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg \
+   --dearmor
+```
+
+### Add MongoDB Repository
+For Ubuntu 22.04 (Jammy):
+```bash
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+```
+
+### Install MongoDB
+```bash
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+```
+
+### Start MongoDB Service
+```bash
+sudo systemctl start mongod
+sudo systemctl enable mongod
+```
+
+### Verify Installation
+```bash
+mongosh
+```
+
+## Faster Whisper Server Setup
+
+The project uses Faster Whisper for audio transcription. For detailed setup and configuration options, refer to:
+- [Faster Whisper Server Documentation](https://github.com/SYSTRAN/faster-whisper)
+- [Faster Whisper Server API Reference](https://github.com/SYSTRAN/faster-whisper/blob/master/faster_whisper/server.py)
+
+Quick setup using Docker:
+
+### GPU Support
+```bash
+docker run --gpus=all --publish 8000:8000 --volume ~/.cache/huggingface:/root/.cache/huggingface fedirz/faster-whisper-server:latest-cuda
+```
+
+### CPU Only
+```bash
+docker run --publish 8000:8000 --volume ~/.cache/huggingface:/root/.cache/huggingface fedirz/faster-whisper-server:latest-cpu
 ```
 
 ## Environment Configuration
@@ -94,36 +150,6 @@ TIMEZONE=America/New_York
 
 # Debug Mode
 DEBUG_MODE=False
-```
-
-## MongoDB Setup
-
-The application supports two modes of operation:
-
-### Basic Setup (Polling Mode)
-- Standard MongoDB installation
-- No replica set required
-- Uses polling for updates (every 1 second)
-- Suitable for development and testing
-
-### Advanced Setup (Change Streams Mode)
-- MongoDB replica set configuration
-- Real-time updates via change streams
-- Better performance and lower latency
-- Recommended for production use
-
-To configure a replica set (optional):
-1. Stop MongoDB
-2. Add replica set configuration to mongod.conf:
-```yaml
-replication:
-  replSetName: "rs0"
-```
-3. Start MongoDB
-4. Initialize the replica set:
-```bash
-mongosh
-> rs.initiate()
 ```
 
 ## Configuration Verification
@@ -163,89 +189,6 @@ python main.py --non-interactive
 tail -f logs/trunkr.log
 ```
 
-## Dependencies Explained
-
-### Core Dependencies
-- `rich`: Terminal UI framework
-  - Provides table formatting
-  - Handles color coding
-  - Manages layout
-
-- `pymongo`: MongoDB interface
-  - Manages database connections
-  - Implements change streams (when available)
-  - Handles queries and updates
-
-- `pytz`: Timezone support
-  - Handles timestamp conversions
-  - Provides consistent time display
-  - Manages timezone-aware operations
-
-- `python-dotenv`: Environment configuration
-  - Loads environment variables
-  - Manages configuration
-  - Secures sensitive data
-
-## Troubleshooting
-
-### Common Issues
-
-1. MongoDB Connection:
-```
-Problem: Cannot connect to MongoDB
-Solution: Verify MongoDB is running and connection string is correct
-
-Problem: Change streams not working
-Solution: Normal if not using replica set, application will use polling instead
-```
-
-2. Environment Variables:
-```
-Problem: Environment variables not loading
-Solution: Verify .env file exists and has correct permissions
-```
-
-3. Display Issues:
-```
-Problem: Truncated or misaligned display
-Solution: Ensure terminal window is at least 24 lines high
-```
-
-4. Color Support:
-```
-Problem: Missing or incorrect colors
-Solution: Use a terminal that supports ANSI color codes
-```
-
-### Debug Mode
-
-Enable debug mode in .env for detailed logging:
-```
-DEBUG_MODE=True
-```
-
-This will provide verbose output in `logs/trunkr.log`
-
-## Updating
-
-To update an existing installation:
-
-1. Pull latest changes:
-```bash
-git pull origin main
-```
-
-2. Update dependencies:
-```bash
-pip install -r requirements.txt  # if requirements.txt exists
-```
-
-3. Check configuration:
-```bash
-# Review any new environment variables in .env.example
-# Update your .env file accordingly
-```
-
 ## Security Notes
 
 ⚠️ **IMPORTANT SECURITY NOTICE** ⚠️
@@ -265,7 +208,8 @@ For any use beyond testing and development:
 
 ## Additional Resources
 
-- MongoDB Documentation: [Change Streams](https://docs.mongodb.com/manual/changeStreams/)
-- Rich Documentation: [Rich GitHub](https://github.com/Textualize/rich)
-- PyMongo Documentation: [PyMongo](https://pymongo.readthedocs.io/)
-- Python-dotenv Documentation: [python-dotenv](https://github.com/theskumar/python-dotenv)
+- [MongoDB Documentation](https://www.mongodb.com/docs/v7.0/)
+- [Faster Whisper Documentation](https://github.com/SYSTRAN/faster-whisper)
+- [Rich Documentation](https://github.com/Textualize/rich)
+- [PyMongo Documentation](https://pymongo.readthedocs.io/)
+- [Python-dotenv Documentation](https://github.com/theskumar/python-dotenv)
