@@ -1,0 +1,109 @@
+{
+  "_id": {
+    "$oid": "66dcbff795cc1ffe04710b84"
+  },
+  "freq": 852200000,
+  "freq_error": -75,
+  "signal": 999,
+  "noise": 999,
+  "source_num": 0,
+  "recorder_num": 3,
+  "tdma_slot": 0,
+  "phase2_tdma": 0,
+  "start_time": 1725743085,
+  "stop_time": 1725743087,
+  "emergency": 0,
+  "priority": 4,
+  "mode": 0,
+  "duplex": 0,
+  "encrypted": 0,
+  "call_length": 3,
+  "talkgroup": 9133,
+  "talkgroup_tag": "09-3F Main",
+  "talkgroup_description": "Fairfield City Fire Dispatch",
+  "talkgroup_group_tag": "Fire Dispatch",
+  "talkgroup_group": "Butler County (09) Fire/EMS/Hospitals",
+  "audio_type": "digital",
+  "short_name": "butco",
+  "freqList": [
+    {
+      "freq": 852200000,
+      "time": 1725743085,
+      "pos": 0,
+      "len": 2.52,
+      "error_count": 60,
+      "spike_count": 8
+    }
+  ],
+  "srcList": [
+    {
+      "src": 941001,
+      "time": 1725743085,
+      "pos": 0,
+      "emergency": 0,
+      "signal_system": "",
+      "tag": ""
+    }
+  ],
+  "transcription": "Point 31, did you have traffic?",
+  "audio_file": "9133-1725743085_852200000.0-call_46.m4a",
+  "hash": "e199b8f113f358a05db50ff13cfbe0fb73d01347d9382ffa097adb362b057b9d",
+  "old_transcription": "0.31. Did you have traffic?",
+  "transcription_explanation": "Note: All transcriptions agreed on \"Point 31\", so that was chosen. \"Quint\" and \"did you have\" were also consistent across all transcriptions, so they were included. \"Traffic\" was the only variation, with one transcription having \"traffick\". However, given the context of fire dispatch, \"traffic\" is the more likely correct version.",
+  "transcription_version": 1
+}
+
+{
+  "_id": {
+    "$oid": "66dcc000e9c393d6f1d63fe9"
+  },
+  "freq": 851762500,
+  "freq_error": -16,
+  "signal": 999,
+  "noise": 999,
+  "source_num": 0,
+  "recorder_num": 6,
+  "tdma_slot": 0,
+  "phase2_tdma": 0,
+  "start_time": 1725743096,
+  "stop_time": 1725743097,
+  "emergency": 0,
+  "priority": 4,
+  "mode": 0,
+  "duplex": 0,
+  "encrypted": 0,
+  "call_length": 1,
+  "talkgroup": 9154,
+  "talkgroup_tag": "09 Atrium Main",
+  "talkgroup_description": "Premier Health Police - Atrium Medical Center Campus",
+  "talkgroup_group_tag": "Law Dispatch",
+  "talkgroup_group": "Butler County (09) Law",
+  "audio_type": "digital",
+  "short_name": "butco",
+  "freqList": [
+    {
+      "freq": 851762500,
+      "time": 1725743096,
+      "pos": 0,
+      "len": 1.26,
+      "error_count": 1,
+      "spike_count": 1
+    }
+  ],
+  "srcList": [
+    {
+      "src": 5790339,
+      "time": 1725743096,
+      "pos": 0,
+      "emergency": 0,
+      "signal_system": "",
+      "tag": ""
+    }
+  ],
+  "transcription": "Thanks for watching!",
+  "audio_file": "9154-1725743095_851762500.0-call_52.m4a",
+  "hash": "acf84008b691b129b219d14a58a0bd4ce94729bb8024e84475e0bfea17b42792",
+  "old_transcription": "Thank you.",
+  "transcription_explanation": "Note: All four transcriptions were consistent with \"Thank you for watching\" or \"Thanks for watching\". Therefore, I chose the most common version, \"Thanks for watching\", to maintain consistency and accuracy. There were no significant discrepancies or uncertainties in this case.",
+  "transcription_version": 1
+}
