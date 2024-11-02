@@ -20,6 +20,8 @@ Trunkr Monitor is a real-time monitoring system designed to work with [trunk-rec
 - MongoDB integration for data storage
 - Terminal-based UI with rich formatting
 - Flexible deployment options (local, distributed, or cloud)
+- Talkgroup statistics and analysis
+- Enhanced transcription capabilities
 
 ## Documentation
 
@@ -35,18 +37,21 @@ Trunkr Monitor is a real-time monitoring system designed to work with [trunk-rec
 - MongoDB integration for data storage
 - Real-time updates via change streams or polling
 - Timezone-aware timestamp handling
+- Talkgroup monitoring and statistics
 
 ### Audio Processing
 - Integration with [Faster Whisper](https://github.com/SYSTRAN/faster-whisper) for transcription
 - Audio compression and storage
 - Batch processing capabilities
 - Optional transcription support
+- Enhanced transcription with improved accuracy
 
 ### Data Management
 - MongoDB GridFS for audio storage
 - Metadata collection management
 - Unit activity tracking
 - Call history maintenance
+- Talkgroup statistics and analysis
 
 ## Requirements
 
@@ -97,13 +102,26 @@ See the [Installation Guide](docs/Installation.md) for complete setup instructio
 
 ## Scripts
 
-The project includes several utility scripts:
+The project includes several utility scripts for audio processing and monitoring:
 
+### Audio Processing Scripts
 - `process_audio_upload.sh` - Process and upload individual audio files
 - `process_audio_upload_no_transcription.sh` - Process without transcription
 - `batch_audio_processor.sh` - Batch process audio files
 - `process_folder.sh` - Process entire folders of recordings
 - `unit_script_logger.sh` - Log unit activities
+
+### Configuration
+- `scripts/config.json` - Central configuration file for audio processing scripts
+  - Customize paths, options, and processing parameters
+  - Configure transcription settings
+  - Set upload destinations and formats
+
+### Monitoring and Analysis
+- `talkgroup_monitor.py` - Real-time talkgroup activity monitoring
+- `talkgroup-stats.py` - Generate statistics and reports for talkgroup usage
+- `tg-transcripts-improved.py` - Enhanced transcription processing with improved accuracy
+- `tg-transcripts.py` - Basic transcription processing
 
 ## Integration with trunk-recorder
 
@@ -113,6 +131,7 @@ This project is designed to enhance [trunk-recorder](https://github.com/robotast
 3. Providing a real-time monitoring interface
 4. Storing data in a queryable database
 5. Tracking unit activities
+6. Analyzing talkgroup patterns and usage
 
 Configure trunk-recorder to output to a directory monitored by this system for seamless integration.
 
