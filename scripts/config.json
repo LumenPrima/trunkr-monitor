@@ -1,0 +1,6 @@
+{
+    "systems": [{
+        "uploadScript": "./process_audio_upload.sh",
+        "unitScript": "./unit_script_logger.sh"
+    }]
+}

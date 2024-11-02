@@ -2,7 +2,6 @@ from datetime import datetime
 import pytz
 from dotenv import load_dotenv
 import os
-from distutils.util import strtobool
 
 # Load environment variables
 load_dotenv()
@@ -21,7 +20,10 @@ TIMEZONE = os.getenv('TIMEZONE', 'America/New_York')
 TIME_FORMAT = "%H:%M:%S"
 
 # Debug Configuration
-DEBUG_MODE = bool(strtobool(os.getenv('DEBUG_MODE', 'False')))
+def str_to_bool(val):
+    return val.lower() in ('true', '1', 't', 'yes', 'y', 'on')
+
+DEBUG_MODE = str_to_bool(os.getenv('DEBUG_MODE', 'False'))
 
 # Validate timezone
 try:
